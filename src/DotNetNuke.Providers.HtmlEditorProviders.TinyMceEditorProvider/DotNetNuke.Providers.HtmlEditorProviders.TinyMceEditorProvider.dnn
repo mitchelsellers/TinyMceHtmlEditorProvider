@@ -1,0 +1,65 @@
+<dotnetnuke type="Package" version="5.0">
+  <packages>
+    <package name="DotNetNuke.Providers.HtmlEditorProviders.TinyMceEditorProvider" type="Module" version="00.00.01">
+      <friendlyName>DotNetNuke.Providers.HtmlEditorProviders.TinyMceEditorProvider</friendlyName>
+      <description></description>
+      <iconFile />
+      <owner>
+        <name>IowaComputerGurus Inc.</name>
+        <organization>IowaComputerGurus Inc.</organization>
+        <url>http://www.iowacomputergurus.com</url>
+        <email>webmaster@iowacomputergurus.com</email>
+      </owner>
+      <license src="ManifestAssets\License.txt"></license>
+      <releaseNotes src="ManifestAssets\ReleaseNotes.txt"></releaseNotes>
+      <dependencies>
+        <dependency type="CoreVersion">09.03.02</dependency>
+      </dependencies>
+      <azureCompatible>true</azureCompatible>
+      <components>
+        <component type="ResourceFile">
+          <resourceFiles>
+            <basePath>Providers\HtmlEditorProviders\TinyMceEditorProvider</basePath>
+            <resourceFile>
+              <name>Resources.zip</name>
+            </resourceFile>
+          </resourceFiles>
+        </component>
+        <component type="Config">
+          <config>
+            <configFile>web.config</configFile>
+            <install>
+              <configuration>
+                <nodes>
+                  <node path="/configuration/dotnetnuke/htmlEditor[@defaultProvider='' or @defaultProvider='DNNConnect.CKE']" action="updateattribute" name="defaultProvider" value="TinyMce" />
+                  <node path="/configuration/dotnetnuke/htmlEditor/providers" action="update" key="name" collision="ignore">
+                    <add name="TinyMce" 
+                         type="DotNetNuke.Providers.HtmlEditorProviders.TinyMceEditorProvider.TinyMceHtmlEditorProvider, DotNetNuke.Providers.HtmlEditorProviders.TinyMceEditorProvider" 
+                         providerPath="~/Providers/HtmlEditorProviders/TinyMceEditorProvider/" 
+                         settingsControlPath="~/Providers/HtmlEditorProviders/TinyMceEditorProvider/Module/EditorManager.ascx" />
+                  </node>
+                </nodes>
+              </configuration>
+            </install>
+            <uninstall>
+              <configuration>
+                <nodes>
+                  <node path="/configuration/dotnetnuke/htmlEditor[@defaultProvider='TinyMce']" action="updateattribute" name="defaultProvider" value="DNNConnect.CKE" />
+                  <node path="/configuration/dotnetnuke/htmlEditor/providers/add[@name='TinyMce']" action="remove" />
+                </nodes>
+              </configuration>
+            </uninstall>
+          </config>
+        </component>
+        <component type="Assembly">
+          <assemblies>
+            <basePath>bin</basePath>
+            <assembly>
+              <name>DotNetNuke.Providers.HtmlEditorProviders.TinyMceEditorProvider.dll</name>
+            </assembly>
+          </assemblies>
+        </component>
+      </components>
+    </package>
+  </packages>
+</dotnetnuke>
